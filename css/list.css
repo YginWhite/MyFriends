@@ -1,0 +1,20 @@
+.list-header {
+	color: white;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.list-row {
+	border-bottom: 1px solid silver;
+	overflow: hidden;
+	font-size: 0.8em;
+}
+
+.list-row li {
+	float: left;
+	width: 25%;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 10px;
+	border-right: 1px dotted silver;
+}

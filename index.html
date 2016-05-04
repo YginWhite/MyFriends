@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyFriends</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/list.css">
+</head>
+<body>
+	
+	<script type="text/x-handlebars" data-template-name="application">
+		<article class="container bg-common">
+			<header class="header bg-header">
+				<h1 class="left">My Friends</h1>
+				<ul class="upper-menu right">
+					<li>{{#link-to "cards"}}cards{{/link-to}}</li>
+					<li>{{#link-to "list"}}list{{/link-to}}</li>
+				</ul>
+			</header>
+			{{outlet}}
+		</article>	
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="cards">
+		<article class="left main-content">
+
+			<header class="content-header">
+				<h2><span>My friends cards contacts:</span></h2>
+			</header>
+
+			{{#each controller itemController="card"}}
+				<article class="card left">
+					<header class="card-header bg-card-header">
+						<h3 class="">{{name}} {{lname}}</h3>
+						<div class="card-panel">
+							<span {{action "editCard"}} class="update" title="update card"></span>
+							<span {{action "hideCardInfo"}}  class="hide" title="hide card info"></span>
+							<span {{action "deleteCard"}}  class="close" title="delete card"></span>
+						</div>
+					</header>
+					<ul class="card-info">
+						{{#if isEdit}}
+							{{view 'edit-card'}}
+						{{else}}
+							{{#if notHide}}
+								<li class="card-foto left">
+									<img {{bind-attr src="photo" alt="name"}} />
+								</li>
+								<li><span>Name: </span>{{name}}</li>
+								<li><span>Lname: </span>{{lname}}</li>
+								<li><span>phone: </span>{{phone}}</li>
+								<li><span>e-mail: </span>{{email}}</li>
+							{{/if}}
+						{{/if}}
+					</ul>
+				</article>
+			{{/each}}
+
+		</article>
+
+		<section class="container right add-content">
+			<header class="content-header">
+				<h2>Add cards:</h2>
+			</header>
+			<form class="add-card card-info">
+				<li>name: {{input type="text" value=name placeholder="Jin"}}</li>
+				<li>lname: {{input type="text" value=lname placeholder="Tonik"}}</li>
+				<li>phone: {{input type="text" value=phone placeholder="222-33-55-999"}}</li>
+				<li>e-mail: {{input type="text" value=email placeholder="earth@planet.my"}}</li>
+				<li>photo: {{input type="text" value=photo placeholder="path like http://somewhere.photo"}}</li>
+				<button {{action "createPerson"}}>create</button>
+			</form>
+		</section>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="list">
+		<article class="container bg-common">
+			<header class="list-header bg-card-header">
+				<ul class="list-row">
+					<li>Name</li>
+					<li>Lname</li>
+					<li>phone</li>
+					<li>e-mail</li>
+				</ul>
+			</header>
+			{{#each}}
+				<section class="list-body">
+					<ul class="list-row">
+						<li>{{name}}</li>
+						<li>{{lname}}</li>
+						<li>{{phone}}</li>
+						<li>{{email}}</li>
+					</ul>
+			</section>
+			{{/each}}
+		</article>
+	</script>
+
+	<script type="text/x-handlebars" data-template-name="editCardView">
+    	<li class="card-foto left">
+			<img {{bind-attr src="photo" alt="name"}} />
+		</li>
+		<li><span>Name: </span>{{input type="text" value=name action="updateCard"}}</li>
+		<li><span>Lname: </span>{{input type="text" value=lname action="updateCard"}}</li>
+		<li><span>phone: </span>{{input type="text" value=phone action="updateCard"}}</li>
+		<li><span>e-mail: </span>{{input type="text" value=email action="updateCard"}}</li>
+  	</script>
+	
+	<script src="js/libs/jquery-1.11.1.js"></script>
+  	<script src="js/libs/handlebars-v1.3.0.js"></script>
+  	<script src="js/libs/ember-1.8.1.js"></script>
+  	<script src="js/libs/ember-data-v1.0.0-beta.11.js"></script>
+  
+  	<script src="js/app.js"></script>
+  	<script src="js/router.js"></script>
+
+  	<script src="js/models/person.js"></script>
+
+  	<script src="js/routes/cards-route.js"></script>
+  	<script src="js/routes/list-route.js"></script>
+
+  	<script src="js/controllers/cards-controller.js"></script>
+  	<script src="js/controllers/card-controller.js"></script>
+
+  	<script src="js/views/edit-card-view.js"></script>
+</body>
+</html>
